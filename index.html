@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"/>
+  <title>Elite English Pro — Premium v6.9 (All-in-One + Speak AI/Q)</title>
+  <meta name="theme-color" content="#0b1020" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <style>
+    :root{ --bg-1:#0b1020; --bg-2:#0a0d15; --glass:rgba(255,255,255,.04); --text:#E7ECF3; --muted:#8DA2BF; --border:rgba(255,255,255,.12); --brand:#7C7CFF; --brand-2:#A678FF; --brand-3:#00E5FF; --gradient:linear-gradient(135deg, var(--brand) 0%, var(--brand-2) 45%, var(--brand-3) 100%); --ring:rgba(124,124,255,.35); --gold:#fbbf24; --r-lg:24px; --nav-h:74px; }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{ margin:0; color:var(--text); font-family:'Inter',system-ui; background: radial-gradient(1200px 800px at 10% -10%, rgba(124,124,255,.25), transparent 60%), radial-gradient(900px 700px at 110% 10%, rgba(0,229,255,.18), transparent 55%), linear-gradient(180deg, var(--bg-1), var(--bg-2)); background-attachment: fixed; padding-bottom: max(140px, calc(var(--nav-h) + env(safe-area-inset-bottom, 0px) + 60px)); }
+    header{position:sticky; top:0; z-index:1000; backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px); background: linear-gradient(180deg, rgba(8,12,22,.75), rgba(8,12,22,.55)); border-bottom:1px solid var(--border); padding:14px 18px; display:flex; align-items:center; justify-content:space-between}
+    .brand{display:flex; align-items:center; gap:12px; font-family:'Outfit'; font-weight:900}
+    .brand i{background:var(--gradient); -webkit-background-clip:text; -webkit-text-fill-color:transparent; font-size:1.4rem}
+    .brand span{font-size:1.05rem; background:linear-gradient(90deg,#fff,#a0b4d4); -webkit-background-clip:text; -webkit-text-fill-color:transparent}
+    .chip{padding:8px 12px; border:1px solid var(--border); border-radius:999px; background:var(--glass); font-family:'Outfit'; font-weight:800; font-size:.8rem; color:#B8C6DD}
+
+    .container{max-width:540px;margin:0 auto;padding:22px 18px}
+    .tab-content{display:none}
+    .tab-content.active{display:block; animation:fadeIn .5s ease}
+    @keyframes fadeIn{from{opacity:0; transform:translateY(8px)} to{opacity:1; transform:translateY(0)}}
+
+    .card{position:relative; background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border:1px solid var(--border); border-radius: var(--r-lg); padding:26px 20px; margin-bottom:18px; box-shadow: 0 10px 30px rgba(0,0,0,.35)}
+    .badge{display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:999px; border:1px solid var(--border); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); font-size:.78rem; font-weight:800; font-family:'Outfit'; color:#C9D7F0; letter-spacing:.6px; text-transform:uppercase}
+    .text-en{font-family:'Outfit'; font-weight:800; color:#F3F7FF; font-size:1.55rem; line-height:1.28; margin:6px 0 14px}
+    .text-fig{color:var(--gold); background:rgba(251,191,36,.08); border:1px dashed rgba(251,191,36,.35); padding:14px; border-radius:14px; font-family: ui-monospace, Menlo, Consolas, 'Courier New', monospace; font-weight:700; font-size:.95rem}
+    .text-es{color:#9FB0C9; font-size:1.06rem; margin-top:10px}
+
+    .audio-grid{display:grid; grid-template-columns: repeat(3,1fr); gap:10px; margin-top:14px}
+    .btn-audio,.btn-rate{background: rgba(255,255,255,.05); border:1px solid var(--border); color:#BCD1EF; border-radius:14px; padding:12px; cursor:pointer; font-family:'Outfit'; font-size:.78rem; font-weight:800; letter-spacing:.6px; text-transform:uppercase; display:flex; flex-direction:column; align-items:center; gap:6px}
+    .btn-primary{width:100%; padding:18px; border-radius:16px; border:1px solid transparent; cursor:pointer; background: var(--gradient); color:white; font-family:'Outfit'; font-weight:900; letter-spacing:.8px; text-transform:uppercase; display:flex; align-items:center; justify-content:center; gap:12px}
+
+    input, textarea, select{width:100%; padding:14px 14px; border-radius:14px; border:1px solid var(--border); background: rgba(255,255,255,.03); color:#E6EEFF; font-size:1rem; outline:none}
+    input:focus, textarea:focus, select:focus{ box-shadow: 0 0 0 6px var(--ring) }
+
+    /* NAV */
+    nav{position:fixed; left:0; right:0; bottom:0; z-index:999; padding-bottom: max(12px, env(safe-area-inset-bottom, 0px));}
+    .nav-shell{ max-width:1080px; margin:0 auto; }
+    .nav-bar{ display:flex; gap:8px; padding:8px; border-radius:20px; border:1px solid var(--border); backdrop-filter: blur(18px); background: linear-gradient(180deg, rgba(255,255,255,.08), rgba(255,255,255,.03)); box-shadow: 0 10px 30px rgba(0,0,0,.35); width:100%; justify-content:center; overflow:hidden }
+    .nav-scroll{ display:flex; justify-content:center; overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none }
+    .nav-scroll::-webkit-scrollbar{ display:none }
+    .nav-item{ min-width:92px; padding:10px 12px; border-radius:14px; display:flex; flex-direction:column; align-items:center; gap:6px; cursor:pointer; color:#AFC5E6; border:1px solid transparent; font-family:'Outfit'; font-weight:800; font-size:.72rem; letter-spacing:.6px; white-space:nowrap; flex:0 0 auto }
+    .nav-item i{font-size:1.22rem}
+    .nav-item.active{ background: rgba(255,255,255,.06); border-color: var(--border); color:#F2F7FF }
+    @media (max-width:520px){ .nav-shell{ max-width:100% } .nav-bar{ width:max-content; justify-content:flex-start } .nav-scroll{ justify-content:flex-start } .nav-item{ min-width:78px } }
+
+    /* SPEAK section extras */
+    .grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px }
+    .mini-badge{ display:inline-block; padding:6px 10px; border-radius:999px; border:1px solid var(--border); background:rgba(255,255,255,.06); font-family:'Outfit'; color:#BFD5F5; font-size:.8rem }
+  
+.row{display:flex; gap:10px; align-items:stretch}
+@media (max-width:540px){.row{flex-direction:column}}
+
+
+/* ===== LEVEL UI (Premium) ===== */
+.lv-head{display:flex;flex-direction:column;gap:10px}
+.lv-step{font-family:'Outfit';font-weight:900;letter-spacing:.6px;color:#DDE7FF;opacity:.95}
+.lv-progress{width:100%;height:12px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid var(--border);overflow:hidden;margin-top:10px}
+.lv-bar{height:100%;width:0%;background:var(--gradient);border-radius:999px;box-shadow:0 0 0 6px rgba(124,124,255,.12) inset;transition:width .35s ease}
+.qbox{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:18px;padding:16px 14px;box-shadow:0 10px 24px rgba(0,0,0,.22)}
+.qbox .text-en,.qbox .text-es{margin:0 0 10px 0}
+.qbox label{display:flex;align-items:center;gap:10px;padding:12px 12px;border-radius:14px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03);cursor:pointer;user-select:none;margin:10px 0 0 0;transition:transform .08s ease,background .18s ease,border-color .18s ease}
+.qbox label:hover{background:rgba(255,255,255,.06);border-color:rgba(124,124,255,.35)}
+.qbox label:active{transform:scale(.99)}
+.qbox input[type="radio"]{appearance:none;width:18px;height:18px;border-radius:999px;border:2px solid rgba(255,255,255,.25);display:inline-block;position:relative;flex:0 0 18px}
+.qbox input[type="radio"]:checked{border-color:rgba(124,124,255,.9);background:rgba(124,124,255,.35);box-shadow:0 0 0 6px rgba(124,124,255,.18)}
+#sec-level .row{gap:10px}
+#lvPrev,#lvCheck,#lvNext{flex:1}
+button:disabled{opacity:.45;cursor:not-allowed;filter:saturate(.6)}
+#lvSummary{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.12);border-radius:18px;padding:14px}
+#lvView .qbox{animation:lvPop .22s ease}
+@keyframes lvPop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<header>
+  <div class="brand"><i class="fas fa-gem"></i><span>ELITE ENGLISH PRO</span></div>
+  <div class="chip" id="scoreLabel">0 PTS</div>
+</header>
+
+<div class="container">
+  <!-- PHRASES -->
+  
+
+  <!-- GLOBAL -->
+  <section id="sec-global" class="tab-content active" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-sliders"></i> Global</span>
+      <div class="text-es" style="margin-top:8px">Si no tienes API, la app intentará traducir con varios servicios gratuitos (LibreTranslate / Apertium). Si falla uno, prueba el siguiente automáticamente.</div>
+
+      <div class="row" style="flex-wrap:wrap; margin-top:12px">
+        <input id="glGoogleKey" placeholder="Google Translate API key (opcional)" style="flex:2">
+        <input id="glGeminiKey" placeholder="Gemini API key (opcional)" style="flex:2">
+      </div>
+
+      <div class="text-es" style="margin-top:12px"><b>LibreTranslate</b> — Servidores (uno por línea). Se prueban en orden.</div>
+      <textarea id="glLibreUrls" rows="4" style="margin-top:8px" placeholder="https://libretranslate.com
+https://translate.argosopentech.com
+http://localhost:5000
+http://127.0.0.1:5000">https://libretranslate.com
+https://translate.argosopentech.com
+http://localhost:5000
+http://127.0.0.1:5000</textarea>
+      <input id="glLibreKey" placeholder="LibreTranslate API key (opcional)" style="margin-top:10px">
+
+      <div class="text-es" style="margin-top:12px"><b>Apertium APy</b> — Servidores (uno por línea). Útil como respaldo gratuito (pares de idiomas limitados).</div>
+      <textarea id="glApyUrls" rows="3" style="margin-top:8px" placeholder="https://apertium.org/apy
+https://beta.apertium.org/apy">https://apertium.org/apy
+https://beta.apertium.org/apy</textarea>
+
+      <div class="row" style="margin-top:10px; gap:10px">
+        <button class="btn-primary" style="flex:1" onclick="glSaveSettings()"><i class="fas fa-floppy-disk"></i> Guardar</button>
+        <button class="btn-audio" style="flex:1" onclick="glClearSettings()"><i class="fas fa-eraser"></i> Limpiar</button>
+      </div>
+
+      <div id="glStatus" class="text-es" style="margin-top:10px; opacity:.9"></div>
+      <div class="text-es" style="margin-top:10px; opacity:.85">Orden de traducción: Google → LibreTranslate (lista) → Apertium (lista) → Gemini → MyMemory.</div>
+      <div class="text-es" style="margin-top:8px; opacity:.75">Tip: si instalas LibreTranslate en tu PC (localhost:5000), será el más estable.</div>
+    </div>
+  </section>
+<section id="sec-phrases" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-sparkles"></i> Daily Inspiration</span>
+      <div id="phEn" class="text-en">Loading...</div>
+      <div id="phFig" class="text-fig">...</div>
+      <div id="phEs" class="text-es">...</div>
+      <div class="audio-grid">
+        <button class="btn-audio" onclick="playAudio('phEn',1)"><i class="fas fa-volume-high"></i> Natural</button>
+        <button class="btn-audio" onclick="playAudio('phEn',0.6)"><i class="fas fa-volume-low"></i> Slow</button>
+        <button class="btn-audio" onclick="playDuo('phEn','phEs')"><i class="fas fa-language"></i> Duo</button>
+      </div>
+      <button class="btn-primary" style="margin-bottom:8px" onclick="loadPhrase()">Next Quote <i class="fas fa-arrow-right"></i></button>
+    </div>
+  </section>
+
+  <!-- STORIES -->
+  <section id="sec-stories" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-globe-americas"></i> World Library</span>
+      <div id="stEn" class="text-en" style="font-size:1.2rem; line-height:1.7; font-weight:700;">...</div>
+      <div id="stFig" class="text-fig">...</div>
+      <div class="audio-grid" style="margin-top:10px">
+        <button class="btn-audio" onclick="playAudio('stEn',1)"><i class="fas fa-book-reader"></i> Read</button>
+        <button class="btn-audio" onclick="playAudio('stEn',0.6)"><i class="fas fa-volume-low"></i> Slow</button>
+        <button class="btn-audio" onclick="playDuo('stEn','stEs')"><i class="fas fa-exchange-alt"></i> Duo</button>
+      </div>
+      <button id="stFigToggle" class="btn-audio" style="width:100%; margin-top:12px;" onclick="toggleFig()"><i class="fas fa-angles-down"></i> Ver más</button>
+      <div id="stEs" class="text-es">...</div>
+      <button class="btn-primary" style="margin-top:8px; margin-bottom:8px" onclick="loadStory()">New Story <i class="fas fa-random"></i></button>
+    </div>
+  </section>
+
+  <!-- PRACTICE -->
+  <section id="sec-exercises" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span id="badge-type" class="badge"><i class="fas fa-flask"></i> Gemini AI Lab</span>
+      <div id="exEn" class="text-en" style="text-align:center; border:1px dashed var(--border); padding:30px 14px; border-radius:16px; background:rgba(255,255,255,.03)">
+        <i class="fas fa-circle-notch fa-spin"></i> Connecting AI...
+      </div>
+      <div id="exFig" class="text-fig" style="text-align:center; background:transparent; border:none; color:var(--gold)">...</div>
+      <div id="feedback" class="text-es" style="display:none; text-align:center"></div>
+      <input type="text" id="exInput" placeholder="Type missing word..." autocomplete="off">
+      <div class="audio-grid">
+        <button class="btn-audio" onclick="playAudio('exEn',1)"><i class="fas fa-volume-high"></i> Normal</button>
+        <button class="btn-audio" onclick="playAudio('exEn',0.6)"><i class="fas fa-volume-low"></i> Slow</button>
+        <button class="btn-audio" onclick="playAudio('exEn',0.4)"><i class="fas fa-volume-off"></i> Snail</button>
+      </div>
+      <button class="btn-primary" onclick="checkEx()">Verify Answer <i class="fas fa-check"></i></button>
+      <button class="btn-audio" style="width:100%; margin-top:12px" onclick="loadGeminiEx()"><i class="fas fa-forward"></i> Skip Challenge</button>
+      <div id="exEs" class="text-es" style="margin-top:16px; text-align:center; opacity:.85"></div>
+    </div>
+  </section>
+
+  <!-- TRANSLATOR -->
+  <section id="sec-translator" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-language"></i> Quick Translator</span>
+      <textarea id="trInput" rows="4" placeholder="Escribe o pega texto en español o inglés..."></textarea>
+      <div class="row" style="gap:10px; margin:10px 0 6px">
+        <select id="trDirection" style="flex:1">
+          <option value="es-en">Spanish ➜ English</option>
+          <option value="en-es">English ➜ Spanish</option>
+          <option value="auto" selected>Auto detect</option>
+        </select>
+        <button class="btn-primary" style="flex:1" onclick="translateText()">Translate <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div class="row" style="gap:10px; align-items:center; margin-top:6px">
+        <span id="trDetect" class="chip">Detecting...</span>
+        <button class="btn-audio" onclick="swapDirection()" aria-label="Intercambiar dirección"><i class="fas fa-arrows-rotate"></i> Swap</button>
+      </div>
+      <div id="trStatus" class="text-es" style="margin-top:8px"></div>
+      <div id="trOut" class="text-en" style="margin-top:6px; font-size:1.25rem; white-space:pre-wrap"></div>
+      <div class="audio-grid" style="margin-top:12px">
+        <button class="btn-audio" onclick="playAudio('trOut',1)"><i class="fas fa-volume-high"></i> Read</button>
+        <button class="btn-audio" onclick="playAudio('trOut',0.6)"><i class="fas fa-volume-low"></i> Slow</button>
+        <button class="btn-audio" onclick="playDuoText()"><i class="fas fa-exchange-alt"></i> Duo</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CARDS (AI) -->
+  <section id="sec-cards" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-brain"></i> Power Flashcards (AI)</span>
+      <div class="row" style="flex-wrap:wrap; margin-top:8px">
+        <input id="fcTopic" placeholder="Tema (opcional): viajes, trabajo, restaurante..." style="flex:2">
+        <input id="fcGeminiKey" placeholder="Gemini API key (opcional)" style="flex:2">
+        <button class="btn-audio" onclick="fcSaveSettings()" title="Guardar en este dispositivo"><i class="fas fa-floppy-disk"></i> Guardar</button>
+      </div>
+      <div class="hint">Skip / New genera <b>3 tarjetas</b>. Fallback: Gemini → Web (filtrado) → Offline.</div>
+      <div class="row" style="gap:8px; flex-wrap:wrap; margin:10px 0 8px">
+        <span class="chip" id="fcTotal">Total: 0</span>
+        <span class="chip" id="fcStatus">Idle</span>
+      </div>
+      <div id="fcFront" class="text-en" style="text-align:center;">—</div>
+      <div id="fcBack" class="text-es" style="text-align:center; display:none;">—</div>
+      <div id="fcEx" class="text-fig" style="text-align:center;">—</div>
+      <div class="audio-grid">
+        <button class="btn-audio" onclick="fcSpeak()"><i class="fas fa-volume-high"></i> Read</button>
+        <button class="btn-audio" onclick="fcToggle()"><i class="fas fa-eye"></i> Show</button>
+        <button class="btn-audio" onclick="fcSkip()"><i class="fas fa-forward"></i> Skip / New (x3)</button>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--border); margin:16px 0">
+      <div class="row" style="gap:10px">
+        <input id="fcNewEn" placeholder="New word (EN): book">
+        <input id="fcNewEs" placeholder="Meaning (ES): libro">
+      </div>
+      <input id="fcNewEx" placeholder="Example (EN): I read a book every night.">
+      <div class="row" style="margin-top:6px; gap:10px">
+        <button class="btn-primary" style="flex:1" onclick="fcAdd()">Add Card <i class="fas fa-plus"></i></button>
+        <button class="btn-audio" style="flex:1" onclick="fcReset()"><i class="fas fa-rotate-left"></i> Reset</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- SPEAK (AI + Web) -->
+  <section id="sec-speak" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-microphone"></i> Shadowing & Q/A (AI)</span>
+      <div class="row" style="flex-wrap:wrap; margin-top:8px">
+        <input id="spTopic" placeholder="Tema (opcional): seguridad, bodega, herramientas..." style="flex:2">
+        <input id="spGeminiKey" placeholder="Gemini API key (opcional)" style="flex:2">
+        <button class="btn-audio" onclick="spSaveSettings()" title="Guardar en este dispositivo"><i class="fas fa-floppy-disk"></i> Guardar</button>
+      </div>
+      <div class="hint">Genera una <b>frase</b> para imitar (shadowing) y una <b>pregunta</b> para responder. Cadena: Gemini → Web (Advice + Traducción). Si no hay IA ni red, se usan plantillas simples.</div>
+
+      <!-- Phrase block -->
+      <div class="mini-badge" style="margin-top:8px"><i class="fas fa-headphones"></i> Phrase for shadowing</div>
+      <div id="spPhraseEn" class="text-en">—</div>
+      <div id="spPhraseFig" class="text-fig">—</div>
+      <div id="spPhraseEs" class="text-es">—</div>
+      <div class="audio-grid">
+        <button class="btn-audio" onclick="speakText('spPhraseEn')"><i class="fas fa-volume-high"></i> Play</button>
+        <button class="btn-audio" onclick="speakText('spPhraseEn',0.75)"><i class="fas fa-volume-low"></i> Slow</button>
+        <button class="btn-audio" onclick="playDuoIds('spPhraseEn','spPhraseEs')"><i class="fas fa-language"></i> Duo</button>
+      </div>
+
+      <!-- Question block -->
+      <div class="mini-badge" style="margin-top:14px"><i class="fas fa-circle-question"></i> Question to answer</div>
+      <div id="spQEn" class="text-en" style="font-size:1.15rem">—</div>
+      <div id="spQEs" class="text-es">—</div>
+      <div class="audio-grid">
+        <button class="btn-audio" onclick="speakText('spQEn')"><i class="fas fa-volume-high"></i> Play</button>
+        <button class="btn-audio" onclick="playDuoIds('spQEn','spQEs')"><i class="fas fa-language"></i> Duo</button>
+      </div>
+
+      <div class="grid-2" style="margin-top:14px">
+        <div>
+          <span class="mini-badge">Your shadowing</span>
+          <div id="spShadowHyp" class="text-en" style="font-size:1.05rem">—</div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn-primary" style="flex:1" onclick="spStartPhraseRec()"><i class="fas fa-microphone"></i> Start</button>
+            <button class="btn-audio" style="flex:1" onclick="spStopRec()"><i class="fas fa-square"></i> Stop</button>
+          </div>
+        </div>
+        <div>
+          <span class="mini-badge">Your answer</span>
+          <div id="spAnsHyp" class="text-en" style="font-size:1.05rem">—</div>
+          <div class="row" style="margin-top:8px">
+            <button class="btn-primary" style="flex:1" onclick="spStartAnswerRec()"><i class="fas fa-microphone"></i> Start</button>
+            <button class="btn-audio" style="flex:1" onclick="spStopRec()"><i class="fas fa-square"></i> Stop</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row" style="margin-top:14px; gap:10px">
+        <button class="btn-primary" style="flex:1" onclick="spGenerate()">Generate (AI/Web) <i class="fas fa-wand-magic-sparkles"></i></button>
+        <button class="btn-audio" style="flex:1" onclick="spUseSuggest()"><i class="fas fa-rotate"></i> Random</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- LEVEL (Wizard) -->
+  <section id="sec-level" class="tab-content" role="tabpanel">
+    <div class="card">
+      <span class="badge"><i class="fas fa-ranking-star"></i> Nivel de inglés — Wizard aleatorio</span>
+      <div class="text-es" style="margin-top:6px">Cada intento genera preguntas aleatorias y evita repetir ítems usados en los últimos <b>40 intentos</b> por categoría.</div>
+      <div class="lv-head" style="margin:10px 0">
+        <div class="lv-step"><span id="lvStepLabel">—</span> · <span id="lvTypeLabel">—</span></div>
+        <div class="row">
+          <button class="btn-audio" onclick="lvNewAttempt()"><i class="fas fa-shuffle"></i> Nuevo intento</button>
+          <div class="chip" id="lvProgressLabel">0%</div>
+        </div>
+      </div>
+      <div class="lv-progress"><div id="lvBar" class="lv-bar"></div></div>
+      <div id="lvView" style="margin-top:12px"></div>
+      <div class="row" style="margin-top:12px">
+        <button class="btn-audio" id="lvPrev" onclick="lvPrev()"><i class="fas fa-arrow-left"></i> Atrás</button>
+        <button class="btn-audio" id="lvCheck" onclick="lvCheck()"><i class="fas fa-check"></i> Revisar</button>
+        <button class="btn-primary" id="lvNext" onclick="lvNext()">Siguiente <i class="fas fa-arrow-right"></i></button>
+      </div>
+      <div id="lvSummary" class="text-es" style="display:none; margin-top:12px"></div>
+    </div>
+  </section>
+</div>
+
+<nav role="tablist" aria-label="Secciones">
+  <div class="nav-shell">
+    <div id="navScroll" class="nav-scroll">
+      <div class="nav-bar" id="navBar">
+      <div class="nav-item active" onclick="switchTab('sec-global',this)" role="tab"><i class="fas fa-sliders"></i><span>GLOBAL</span></div>
+        <div class="nav-item" onclick="switchTab('sec-phrases',this)" role="tab"><i class="fas fa-bolt"></i><span>PHRASES</span></div>
+        <div class="nav-item" onclick="switchTab('sec-stories',this)" role="tab"><i class="fas fa-book-open"></i><span>STORIES</span></div>
+        <div class="nav-item" onclick="switchTab('sec-exercises',this)" role="tab"><i class="fas fa-gamepad"></i><span>PRACTICE</span></div>
+        <div class="nav-item" onclick="switchTab('sec-translator',this)" role="tab"><i class="fas fa-language"></i><span>TRANSLATOR</span></div>
+        <div class="nav-item" onclick="switchTab('sec-cards',this)" role="tab"><i class="fas fa-brain"></i><span>CARDS</span></div>
+        <div class="nav-item" onclick="switchTab('sec-speak',this)" role="tab"><i class="fas fa-microphone"></i><span>SPEAK</span></div>
+        <div class="nav-item" onclick="switchTab('sec-level',this)" role="tab"><i class="fas fa-ranking-star"></i><span>LEVEL</span></div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+// ===== Shared helpers & TTS
+function playText(txt, lang='en-US', rate=1){ try{ window.speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(txt); u.lang=lang; u.rate=rate; window.speechSynthesis.speak(u);}catch{} }
+function playAudio(id,rate){ const txt=document.getElementById(id).innerText.replace(/_/g,''); playText(txt,'en-US',rate); }
+function playDuo(en,es){ try{ window.speechSynthesis.cancel(); const mEn=new SpeechSynthesisUtterance(document.getElementById(en).innerText); mEn.lang='en-US'; mEn.onend=()=>{ const mEs=new SpeechSynthesisUtterance(document.getElementById(es).innerText); mEs.lang='es-MX'; window.speechSynthesis.speak(mEs); }; window.speechSynthesis.speak(mEn);}catch{} }
+function playDuoIds(idEn,idEs){ playDuo(idEn,idEs); }
+function speakText(id, rate=1){ const t=document.getElementById(id).innerText; playText(t,'en-US',rate); }
+function sleep(ms){ return new Promise(r=>setTimeout(r,ms)); }
+
+
+
+// ===== GLOBAL KEYS + TRANSLATION (Google -> LibreTranslate list -> Apertium list -> Gemini -> MyMemory) =====
+let lastTranslateProvider = '';
+let lastLibreOk = '';
+let lastApyOk = '';
+
+function glLoadSettings(){
+  try{
+    const gtr = localStorage.getItem('gt_api_key') || '';
+    const gem = localStorage.getItem('gemini_api_key') || '';
+    const ltUrls = localStorage.getItem('lt_urls') || 'https://libretranslate.com\nhttps://translate.argosopentech.com\nhttp://localhost:5000\nhttp://127.0.0.1:5000';
+    const ltKey = localStorage.getItem('lt_api_key') || '';
+    const apyUrls = localStorage.getItem('apy_urls') || 'https://apertium.org/apy\nhttps://beta.apertium.org/apy';
+    const gEl=document.getElementById('glGoogleKey');
+    const mEl=document.getElementById('glGeminiKey');
+    const uEl=document.getElementById('glLibreUrls');
+    const kEl=document.getElementById('glLibreKey');
+    const aEl=document.getElementById('glApyUrls');
+    if(gEl) gEl.value=gtr;
+    if(mEl) mEl.value=gem;
+    if(uEl) uEl.value=ltUrls;
+    if(kEl) kEl.value=ltKey;
+    if(aEl) aEl.value=apyUrls;
+  }catch{}
+}
+function glSaveSettings(){
+  try{
+    const gtr=(document.getElementById('glGoogleKey')?.value||'').trim();
+    const gem=(document.getElementById('glGeminiKey')?.value||'').trim();
+    const ltUrls=(document.getElementById('glLibreUrls')?.value||'').trim();
+    const ltKey=(document.getElementById('glLibreKey')?.value||'').trim();
+    const apyUrls=(document.getElementById('glApyUrls')?.value||'').trim();
+    localStorage.setItem('gt_api_key', gtr);
+    localStorage.setItem('gemini_api_key', gem);
+    localStorage.setItem('lt_urls', ltUrls);
+    localStorage.setItem('lt_api_key', ltKey);
+    localStorage.setItem('apy_urls', apyUrls);
+    const s=document.getElementById('glStatus');
+    if(s){ s.style.color='#97F4C3'; s.innerText='✅ Guardado.'; }
+    setTimeout(()=>{ const s2=document.getElementById('glStatus'); if(s2) s2.innerText=''; }, 1600);
+  }catch{}
+}
+function glClearSettings(){
+  try{
+    localStorage.removeItem('gt_api_key');
+    localStorage.removeItem('gemini_api_key');
+    localStorage.removeItem('lt_urls');
+    localStorage.removeItem('lt_api_key');
+    localStorage.removeItem('apy_urls');
+    const gEl=document.getElementById('glGoogleKey');
+    const mEl=document.getElementById('glGeminiKey');
+    const uEl=document.getElementById('glLibreUrls');
+    const kEl=document.getElementById('glLibreKey');
+    const aEl=document.getElementById('glApyUrls');
+    if(gEl) gEl.value='';
+    if(mEl) mEl.value='';
+    if(uEl) uEl.value='https://libretranslate.com\nhttps://translate.argosopentech.com\nhttp://localhost:5000\nhttp://127.0.0.1:5000';
+    if(kEl) kEl.value='';
+    if(aEl) aEl.value='https://apertium.org/apy\nhttps://beta.apertium.org/apy';
+    lastLibreOk=''; lastApyOk='';
+    const s=document.getElementById('glStatus');
+    if(s){ s.style.color='#F9A8A8'; s.innerText='🧹 Reiniciado.'; }
+    setTimeout(()=>{ const s2=document.getElementById('glStatus'); if(s2) s2.innerText=''; }, 1600);
+  }catch{}
+}
+
+function decodeHTMLEntities(s=''){
+  const p=document.createElement('textarea');
+  p.innerHTML=s;
+  return p.value;
+}
+async function fetchWithTimeout(url, options={}, ms=12000){
+  const ctrl=new AbortController();
+  const id=setTimeout(()=>ctrl.abort(), ms);
+  try{ return await fetch(url, {...options, signal: ctrl.signal}); }
+  finally{ clearTimeout(id); }
+}
+
+function getGoogleKey(){
+  try{ return (document.getElementById('glGoogleKey')?.value || localStorage.getItem('gt_api_key') || '').trim(); }catch{ return ''; }
+}
+function getGeminiKey(){
+  try{ return (document.getElementById('glGeminiKey')?.value || localStorage.getItem('gemini_api_key') || '').trim(); }catch{ return ''; }
+}
+function getLibreKey(){
+  try{ return (document.getElementById('glLibreKey')?.value || localStorage.getItem('lt_api_key') || '').trim(); }catch{ return ''; }
+}
+function getListFromTextarea(id, storageKey, defaults){
+  try{
+    const raw = (document.getElementById(id)?.value || localStorage.getItem(storageKey) || '').trim();
+    let list = raw.split(/\r?\n|,/).map(s=>s.trim()).filter(Boolean).map(u=>u.replace(/\/$/,''));
+    if(list.length===0) list=defaults;
+    return list;
+  }catch{ return defaults; }
+}
+function getLibreUrlList(){
+  const defaults=['https://libretranslate.com','https://translate.argosopentech.com','http://localhost:5000','http://127.0.0.1:5000'];
+  let list = getListFromTextarea('glLibreUrls','lt_urls',defaults);
+  if(lastLibreOk && list.includes(lastLibreOk)) list=[lastLibreOk, ...list.filter(x=>x!==lastLibreOk)];
+  return list;
+}
+function getApyUrlList(){
+  const defaults=['https://apertium.org/apy','https://beta.apertium.org/apy'];
+  let list = getListFromTextarea('glApyUrls','apy_urls',defaults);
+  if(lastApyOk && list.includes(lastApyOk)) list=[lastApyOk, ...list.filter(x=>x!==lastApyOk)];
+  return list;
+}
+
+async function translateViaGoogleV2(text, from, to){
+  const key=getGoogleKey();
+  if(!key) return null;
+  const url=`https://translation.googleapis.com/language/translate/v2?key=${encodeURIComponent(key)}`;
+  const body={ q:text, target:to, format:'text' };
+  if(from && from!=='auto') body.source=from;
+  try{
+    const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},12000);
+    if(!r.ok) return null;
+    const j=await r.json();
+    const raw=j?.data?.translations?.[0]?.translatedText||'';
+    const out=raw?decodeHTMLEntities(raw).trim():'';
+    if(!out) return null;
+    lastTranslateProvider='google';
+    return out;
+  }catch{ return null; }
+}
+
+async function translateViaLibreOne(base,text,from,to){
+  const apiKey=getLibreKey();
+  const url=`${base}/translate`;
+  const body={ q:text, source:from||'auto', target:to, format:'text' };
+  if(apiKey) body.api_key=apiKey;
+  const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},12000);
+  if(!r.ok) return null;
+  const j=await r.json();
+  const out=(j?.translatedText||'').trim();
+  return out||null;
+}
+async function translateViaLibreAny(text,from,to){
+  const list=getLibreUrlList();
+  for(const base of list){
+    try{
+      const out=await translateViaLibreOne(base,text,from,to);
+      if(out){ lastLibreOk=base; lastTranslateProvider=`libre:${base.replace(/^https?:\/\//,'')}`; return out; }
+    }catch{ continue; }
+  }
+  return null;
+}
+
+function apertiumCode(code){
+  const map={ en:'eng', es:'spa', fr:'fra', pt:'por', de:'deu', it:'ita', ca:'cat', gl:'glg', eu:'eus', nl:'nld', sv:'swe', no:'nor', nb:'nob', nn:'nno', da:'dan', fi:'fin', ro:'ron', ru:'rus', uk:'ukr' };
+  return map[code] || code;
+}
+async function translateViaApertiumOne(base,text,from,to){
+  // Apertium APy suele usar /translate?langpair=xxx|yyy y body form q
+  const fromA=apertiumCode(from||'auto');
+  const toA=apertiumCode(to);
+  const pairs=[`${from}|${to}`, `${fromA}|${toA}`];
+  for(const lp of pairs){
+    try{
+      const url=`${base}/translate?langpair=${encodeURIComponent(lp)}`;
+      const body=new URLSearchParams();
+      body.set('q', text);
+      const r=await fetchWithTimeout(url,{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body: body.toString()},12000);
+      if(!r.ok) continue;
+      const j=await r.json();
+      const out=(j?.responseData?.translatedText || j?.translatedText || '').trim();
+      if(out) return out;
+    }catch{ continue; }
+  }
+  return null;
+}
+async function translateViaApertiumAny(text,from,to){
+  const list=getApyUrlList();
+  for(const base of list){
+    try{
+      const out=await translateViaApertiumOne(base,text,from,to);
+      if(out){ lastApyOk=base; lastTranslateProvider=`apertium:${base.replace(/^https?:\/\//,'')}`; return out; }
+    }catch{ continue; }
+  }
+  return null;
+}
+
+function stripFence(s=''){ return s.replace(/^```[a-zA-Z]*\s*/,'').replace(/```$/,'').trim(); }
+async function translateViaGemini(text,from,to){
+  const key=getGeminiKey();
+  if(!key) return null;
+  const prompt=`Translate from ${from||'auto'} to ${to}. Return ONLY the translated text (no quotes, no explanations).\n\nTEXT:\n${text}`;
+  const body={contents:[{role:'user',parts:[{text:prompt}]}]};
+  try{
+    const r=await fetchWithTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)},12000);
+    if(!r.ok) return null;
+    const j=await r.json();
+    const outRaw=j?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n')||'';
+    const out=stripFence(outRaw).trim();
+    if(!out) return null;
+    lastTranslateProvider='gemini';
+    return out;
+  }catch{ return null; }
+}
+async function translateViaMyMemory(text,from,to){
+  try{
+    const lp=`${from||'auto'}|${to}`;
+    const url=`https://api.mymemory.translated.net/get?q=${encodeURIComponent(text)}&langpair=${encodeURIComponent(lp)}`;
+    const r=await fetchWithTimeout(url,{},9000);
+    if(!r.ok) return '';
+    const j=await r.json();
+    const out=j?.responseData?.translatedText||'';
+    if(String(out).startsWith('MYMEMORY WARNING')) return '';
+    lastTranslateProvider='mymemory';
+    return out;
+  }catch{ return ''; }
+}
+
+async function translateSmart(text,from,to){
+  lastTranslateProvider='';
+  const g=await translateViaGoogleV2(text,from,to);
+  if(g) return g;
+  const lt=await translateViaLibreAny(text,from,to);
+  if(lt) return lt;
+  const apy=await translateViaApertiumAny(text,from,to);
+  if(apy) return apy;
+  const ai=await translateViaGemini(text,from,to);
+  if(ai) return ai;
+  return await translateViaMyMemory(text,from,to);
+}
+// ===== NAV
+function reconcileNavLayout(){ const scroll=document.getElementById('navScroll'); const bar=document.getElementById('navBar'); const totalW=Array.from(bar.children).reduce((w,el)=>w+el.getBoundingClientRect().width+8, 0); const shellW=scroll.getBoundingClientRect().width; if(totalW<=shellW){ bar.style.width='100%'; bar.style.justifyContent='center'; scroll.style.overflowX='hidden'; } else { bar.style.width= totalW+'px'; bar.style.justifyContent='flex-start'; scroll.style.overflowX='auto'; } }
+function scrollNavTo(el){ try{ el.scrollIntoView({behavior:'smooth', inline:'center', block:'nearest'}); }catch(e){} }
+function switchTab(id, el){ document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active')); document.getElementById(id).classList.add('active'); document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active')); el.classList.add('active'); scrollNavTo(el); if(id==='sec-exercises' && !targetWord) loadGeminiEx(); if(id==='sec-cards'){ fcRender(); } }
+window.addEventListener('resize', reconcileNavLayout);
+window.addEventListener('orientationchange', ()=>setTimeout(reconcileNavLayout, 250));
+
+// ===== Figurada (phonetic-like Spanish)
+const FIG_DEFAULT={maxLen:240, stress:true};
+function getFigurada(input,opts){
+  if(!input) return "";
+  if(typeof opts==='number') opts={maxLen:opts};
+  const cfg=Object.assign({},FIG_DEFAULT,opts||{});
+  const EX={'the':'da','this':'dis','that':'dat','these':'diz','those':'douz','there':'der','their':'der','they':'dei','them':'dem','hello':'jelou','hi':'jai','hey':'jei','please':'plis','thanks':'zanx','thank':'zank','yes':'ies','no':'nou','ok':'oukei','okay':'oukei','sure':'shur','i':'ai','you':'iu','we':'wi','he':'ji','she':'shi','do':'du','does':'dos','to':'tu'};
+  const vowels='aeiou', acc={a:'á',e:'é',i:'í',o:'ó',u:'ú'};
+  function stress(w){
+    for(let i=0;i<w.length;i++){
+      const ch=w[i].toLowerCase();
+      if(vowels.includes(ch)){
+        const m=(w[i]===w[i].toUpperCase()?acc[ch].toUpperCase():acc[ch]);
+        return w.slice(0,i)+m+w.slice(i+1);
+      }
+    }
+    return w;
+  }
+  function rules(word){
+    let w=word.toLowerCase();
+    if(EX[w]) return stress(EX[w]);
+    w=w.replace(/^kn/,'n').replace(/^wr/,'r');
+    w=w.replace(/tion/g,'shon').replace(/sion/g,'shon');
+    w=w.replace(/igh/g,'ai').replace(/ed/g,'d').replace(/ing/g,'in');
+    return stress(w);
+  }
+  const tokens=input.match(/\w+|[^\w\s]+|\s+/g) || [input];
+  return tokens.map(t=>/[A-Za-z]/.test(t)?rules(t):t).join('').slice(0,cfg.maxLen);
+}
+
+
+// ===== PHRASES & STORIES
+let targetWord=""; let figExpanded=false;
+async function loadPhrase(){
+  const ph=document.getElementById('phEn');
+  ph.style.opacity='.6';
+  try{
+    const r=await fetch('https://api.adviceslip.com/advice');
+    const d=await r.json();
+    const advice=d?.slip?.advice || 'Practice a little every day.';
+    ph.innerText=advice;
+    document.getElementById('phFig').innerText=getFigurada(advice,{maxLen:240});
+    const es=await translateSmart(advice,'en','es');
+    document.getElementById('phEs').innerText = es || '⚠️ Traducción no disponible. Prueba otro servidor en GLOBAL.';
+  }catch(e){}
+  finally{ ph.style.opacity='1'; }
+}
+
+async function loadStory(){
+  const st=document.getElementById('stEn');
+  st.style.opacity='.6';
+  try{
+    const r=await fetch('https://en.wikipedia.org/api/rest_v1/page/random/summary');
+    const d=await r.json();
+    const text=d?.extract || 'Learning English opens new opportunities.';
+    st.innerText=text;
+    document.getElementById('stFig').innerText=getFigurada(text,{maxLen: figExpanded?4000:260});
+    const src=text.substring(0,400);
+    const es=await translateSmart(src,'en','es');
+    document.getElementById('stEs').innerText = es || '⚠️ Traducción no disponible. Prueba otro servidor en GLOBAL.';
+  }catch(e){}
+  finally{ st.style.opacity='1'; }
+}
+
+function toggleFig(){ const btn=document.getElementById('stFigToggle'); figExpanded=!figExpanded; if(btn) btn.innerHTML = figExpanded? '<i class="fas fa-angles-up"></i> Ver menos' : '<i class="fas fa-angles-down"></i> Ver más'; const stText=document.getElementById('stEn').innerText; document.getElementById('stFig').innerText=getFigurada(stText,{maxLen: figExpanded?4000:260}); }
+
+// ===== TRANSLATOR
+function detectLangSimple(text){ const t=(text||'').toLowerCase(); const esWords=/(hola|como|estas|gracias|por|favor|buenos|dias|buenas|tardes|noche|porque|para|que|cuando|donde|quien|yo|tu|usted|nosotros|ellos|muy|bien)/g; const enWords=/(hello|how|are|you|thanks|please|good|morning|afternoon|night|because|for|that|when|where|who|i|we|they|very|well)/g; const hasES=/[áéíóúñü]/i.test(text); const e1=(t.match(esWords)||[]).length; const e2=(t.match(enWords)||[]).length; if(hasES||e1>e2) return 'es'; if(e2>e1) return 'en'; const words=t.split(/\s+/).filter(Boolean); const vowels=words.filter(w=>/[aeiou]$/.test(w)).length; return (vowels>words.length*0.6)?'es':'en'; }
+function swapDirection(){ const sel=document.getElementById('trDirection'); if(sel.value==='es-en') sel.value='en-es'; else if(sel.value==='en-es') sel.value='es-en'; else sel.value='auto'; }
+async function translateText(){
+  const src=document.getElementById('trInput').value.trim();
+  const out=document.getElementById('trOut');
+  const status=document.getElementById('trStatus');
+  const detectBadge=document.getElementById('trDetect');
+  const sel=document.getElementById('trDirection');
+  out.innerText='';
+  status.textContent='Traduciendo...';
+  if(!src){ status.textContent='Escribe un texto para traducir.'; detectBadge.innerText='—'; return; }
+  let from,to;
+  if(sel.value==='auto'){ from=detectLangSimple(src); to= from==='es'?'en':'es'; }
+  else { [from,to]=sel.value.split('-'); }
+  detectBadge.innerText=`Detect: ${from.toUpperCase()} → ${to.toUpperCase()}`;
+  try{
+    const cleaned=src.replace(/\s+/g,' ').trim();
+    const translated=await translateSmart(cleaned, from, to);
+    if(!translated) throw new Error('Sin resultado');
+    out.innerText=translated;
+    const prov = lastTranslateProvider?`(${lastTranslateProvider})`:'';
+    status.textContent=`${from.toUpperCase()} ➜ ${to.toUpperCase()} listo. ${prov}`;
+  }catch(e){
+    status.textContent='No se pudo traducir ahora. Cambia el orden de servidores en GLOBAL.';
+  }
+}
+
+function playDuoText(){ try{ window.speechSynthesis.cancel(); const src=document.getElementById('trInput').value.trim(); const tgt=document.getElementById('trOut').innerText.trim(); if(!src||!tgt) return; const from=detectLangSimple(src); const to=(from==='es')?'en':'es'; const mSrc=new SpeechSynthesisUtterance(src); mSrc.lang=(from==='es')?'es-MX':'en-US'; mSrc.onend=()=>{ const mTgt=new SpeechSynthesisUtterance(tgt); mTgt.lang=(to==='es')?'es-MX':'en-US'; window.speechSynthesis.speak(mTgt); }; window.speechSynthesis.speak(mSrc); }catch{} }
+
+// ===== PRACTICE demo
+async function loadGeminiEx(){ try{ const res=await fetch('https://api.adviceslip.com/advice'); const d=await res.json(); const txt=d.slip.advice; document.getElementById('exEn').innerText=txt.replace(/(\w{6,})/, '____'); document.getElementById('exFig').innerText=getFigurada(txt,{maxLen:240}); document.getElementById('exEs').innerText='(Tip) Translate it yourself first.'; const match=txt.match(/\w{6,}/); targetWord=(match?match[0]:'practice').toLowerCase(); }catch(e){ document.getElementById('exEn').innerText='No se pudo generar el ejercicio.'; }}
+function checkEx(){ const val=document.getElementById('exInput').value.trim().toLowerCase(); const fb=document.getElementById('feedback'); if(val===targetWord){ fb.style.display='block'; fb.style.color='#97F4C3'; fb.innerText='✨ PERFECTO'; confetti({ particleCount:80, spread:60, origin:{y:.85}, colors:['#7C7CFF','#00E5FF']}); } else { fb.style.display='block'; fb.style.color='#F9A8A8'; fb.innerHTML=`Incorrect. It was: <span style='color:#fff;font-weight:800'>${targetWord.toUpperCase()}</span>`; }}
+
+// ===== CARDS (AI + Web + Offline) — condensed from v6.8.1
+let fcDeck=[{en:'get',es:'obtener',ex:'I get up at 7 am.'}], fcCurrent=fcDeck[0];
+function setStatus(t){ const el=document.getElementById('fcStatus'); if(el) el.innerText=t; }
+const FC_BATCH=3;
+function fcRender(){ const f=document.getElementById('fcFront'); const b=document.getElementById('fcBack'); const e=document.getElementById('fcEx'); if(!f||!b||!e) return; f.innerText=fcCurrent?.en||'—'; b.innerText=fcCurrent?.es||'—'; e.innerText=fcCurrent?.ex||'—'; const t=document.getElementById('fcTotal'); if(t) t.innerText='Total: '+fcDeck.length; }
+function fcSpeak(){ const m=new SpeechSynthesisUtterance((fcCurrent?.en||'')+' . '+(fcCurrent?.ex||'')); m.lang='en-US'; window.speechSynthesis.speak(m); }
+function fcToggle(){ const elB=document.getElementById('fcBack'); elB.style.display=(elB.style.display==='none'||!elB.style.display)?'block':'none'; }
+function fcSkip(){ fcAutoNew(FC_BATCH); }
+function fcAdd(){ const en=(document.getElementById('fcNewEn').value||'').trim(); const es=(document.getElementById('fcNewEs').value||'').trim(); const ex=(document.getElementById('fcNewEx').value||'').trim(); if(!en||!es) return; fcDeck.push({en,es,ex}); fcCurrent=fcDeck[fcDeck.length-1]; fcRender(); document.getElementById('fcNewEn').value=''; document.getElementById('fcNewEs').value=''; document.getElementById('fcNewEx').value=''; }
+function fcReset(){ fcDeck=[{en:'get',es:'obtener',ex:'I get up at 7 am.'}]; fcCurrent=fcDeck[0]; fcRender(); }
+function fcLoadSettings(){ try{ const k=localStorage.getItem('gemini_api_key')||''; const t=localStorage.getItem('fc_topic')||''; const kEl=document.getElementById('fcGeminiKey'); const tEl=document.getElementById('fcTopic'); if(kEl) kEl.value=k; if(tEl) tEl.value=t; }catch{} }
+function fcSaveSettings(){ try{ const key=(document.getElementById('fcGeminiKey').value||'').trim(); const topic=(document.getElementById('fcTopic').value||'').trim(); localStorage.setItem('gemini_api_key', key); localStorage.setItem('fc_topic', topic); setStatus('Settings saved'); setTimeout(()=>setStatus('Idle'),1200); }catch{} }
+function getApiKey(){ try{ return (document.getElementById('glGeminiKey')?.value||document.getElementById('fcGeminiKey')?.value||document.getElementById('spGeminiKey')?.value||localStorage.getItem('gemini_api_key')||'').trim(); }catch{return ''} }
+
+function getTopicCards(){ try{ return (document.getElementById('fcTopic').value||localStorage.getItem('fc_topic')||'').trim(); }catch{return ''} }
+async function timedFetch(url, options={}, ms=9000){ const ctrl=new AbortController(); const id=setTimeout(()=>ctrl.abort(), ms); try{ const res=await fetch(url, {...options, signal: ctrl.signal}); return res; } finally { clearTimeout(id); } }
+async function fcFromGemini(topic, n=3){ const key=getApiKey(); if(!key) return null; setStatus('Gemini: generating...'); const prompt=`You are an English teacher. Create ${n} concise flashcards for the topic "${topic||'general daily English'}". JSON ONLY like: {"cards":[{"en":"word","es":"traducción","ex":"Example in English."}]}. Keep it A2-B1. Use SINGLE words (nouns/verbs/adjectives), no hyphens.`; const body={ contents:[{ role:'user', parts:[{text:prompt}]}] };
+  try{ const res = await timedFetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) }, 12000); if(!res.ok){ return null; } const j=await res.json(); const text = j?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n') || ''; const jsonStr = (text||'').match(/\{[\s\S]*\}/)?.[0]; const data = jsonStr? JSON.parse(jsonStr): null; if(data?.cards?.length){ return data.cards.slice(0,n); } }catch(e){} return null; }
+function normalizeTopic(t){ t=(t||'').toLowerCase(); const map={ 'viajes':'travel','restaurante':'restaurant','trabajo':'work','seguridad':'safety','bodega':'warehouse','herramientas':'tools','envios':'shipping','envíos':'shipping','logistica':'logistics','logística':'logistics','almacen':'warehouse','almacén':'warehouse','picking':'picking','paqueteria':'parcel','paquetería':'parcel','montacargas':'forklift','ruta':'route','carga':'loading','descarga':'unloading'}; return map[t]||t.replace(/\s+/g,' ').trim(); }
+function cleanWord(w){ return (w||'').toLowerCase().trim(); }
+function goodCandidate(w){ const ban=new Set(['day-to-day','daytoday','everyday','daily','today','tonight','yesterday','tomorrow']); if(!w) return false; if(ban.has(w)) return false; if(/[^a-z]/.test(w)) return false; if(w.length<4 || w.length>14) return false; return true; }
+async function datamuseSet(params){ const url=`https://api.datamuse.com/words?${params}&md=p&max=50`; const r=await timedFetch(url,{},8000); if(!r.ok) return []; try{ return await r.json(); }catch{ return []; } }
+async function fcFromWeb(topic, n=3){ setStatus('Web: fetching...'); try{ const seed = normalizeTopic(topic)||'general'; const seedWords = seed.split(/[,\s]+/).filter(Boolean).slice(0,3); const q1 = datamuseSet(`ml=${encodeURIComponent(seed)}`); const q2 = datamuseSet(`topics=${encodeURIComponent(seedWords.join(','))}`); const q3 = Promise.all(seedWords.map(sw=> datamuseSet(`rel_trg=${encodeURIComponent(sw)}`))).then(x=>x.flat()); const results = (await Promise.allSettled([q1,q2,q3])).map(e=> e.status==='fulfilled'? e.value: []).flat(); const uniq=[]; const seen=new Set(); for(const it of results){ const w=cleanWord(it.word); const tags=it.tags||[]; if(!seen.has(w) && goodCandidate(w)){ const score = (tags.includes('n')?3:0) + (tags.includes('v')?2:0) + (tags.includes('adj')?1:0); uniq.push({w,score}); seen.add(w);} } let candidates = uniq.sort((a,b)=> b.score-a.score).map(x=>x.w); if(candidates.length===0){ candidates=['travel','improve','safety','tool','deliver','repair','borrow','schedule']; } candidates = Array.from(new Set(candidates)).slice(0, 25); const jobs = candidates.map(async (pick)=>{ try{ const r2 = await timedFetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(pick)}`, {}, 8000); if(!r2.ok) throw new Error('dict fail'); const dj = await r2.json(); const meaning = dj && Array.isArray(dj) && dj[0]?.meanings?.[0]?.definitions?.[0]?.definition || ''; if(!meaning) throw new Error('no def'); const example = dj && Array.isArray(dj) && dj[0]?.meanings?.[0]?.definitions?.[0]?.example || `I use the word "${pick}" in daily conversations.`; const tr = await timedFetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(meaning)}&langpair=en|es`, {}, 8000); const tj = tr.ok? await tr.json(): {responseData:{translatedText:'—'}}; const es = tj?.responseData?.translatedText || '—'; return { en: pick, es, ex: example }; }catch(e){ return null; } }); const built = (await Promise.all(jobs)).filter(Boolean); return built.slice(0,n).length? built.slice(0,n): null; }catch(e){ return null; } }
+function fcFromOffline(n=3){ setStatus('Offline: generating...'); const bank=[ {en:'arrive', es:'llegar', ex:'We arrive at work at eight.'}, {en:'order', es:'ordenar/pedir', ex:'I would like to order a coffee.'}, {en:'repair', es:'reparar', ex:'They will repair the car tomorrow.'}, {en:'borrow', es:'pedir prestado', ex:'Can I borrow your pen?'}, {en:'improve', es:'mejorar', ex:'Reading every day will improve your English.'}, {en:'deliver', es:'entregar', ex:'They will deliver the package today.'}, {en:'schedule', es:'programar', ex:'Let’s schedule a meeting for Monday.'} ]; const out=[]; const seen=new Set(); while(out.length<n){ const it=bank[Math.floor(Math.random()*bank.length)]; const key=it.en; if(!seen.has(key)){ seen.add(key); out.push(it); } } return out; }
+async function fcAutoNew(target=3){ const topic=getTopicCards(); setStatus('Generating new cards...'); let cards = await fcFromGemini(topic, target); if(!(cards && cards.length===target)){ const missing = target - (cards? cards.length: 0); const web = await fcFromWeb(topic, missing); cards = (cards? cards.concat(web||[]): (web||[])); } if(!cards || cards.length<target){ const off = fcFromOffline(target - (cards? cards.length: 0)); cards = (cards? cards.concat(off): off); } const clean=(s)=> (s||'').replace(/\s+/g,' ').trim(); let added=0; for(const c of cards){ const card={ en: clean(c.en), es: clean(c.es), ex: clean(c.ex) }; if(card.en){ fcDeck.push(card); fcCurrent=card; added++; } } fcRender(); setStatus(`Added ${added} card(s)`); confetti({ particleCount: 80, spread: 70, origin:{y:.85}, colors:['#7C7CFF','#00E5FF','#10b981']}); await sleep(800); setStatus('Idle'); }
+
+// ===== SPEAK (AI + Web) — new
+function spLoadSettings(){ try{ const k=localStorage.getItem('gemini_api_key')||''; const t=localStorage.getItem('sp_topic')||''; const kEl=document.getElementById('spGeminiKey'); const tEl=document.getElementById('spTopic'); if(kEl) kEl.value=k; if(tEl) tEl.value=t; }catch{} }
+function spSaveSettings(){ try{ const key=(document.getElementById('spGeminiKey').value||'').trim(); const topic=(document.getElementById('spTopic').value||'').trim(); if(key) localStorage.setItem('gemini_api_key', key); localStorage.setItem('sp_topic', topic); showSpeakStatus('Settings saved'); setTimeout(()=>showSpeakStatus('Idle'),1200); }catch{} }
+function getTopicSpeak(){ try{ return (document.getElementById('spTopic').value||localStorage.getItem('sp_topic')||'').trim(); }catch{return ''} }
+function showSpeakStatus(t){ /* optional status in future */ }
+async function spGenAI(topic){ const key=getApiKey(); if(!key) return null; const prompt = `Act as an A2-B1 English tutor. Create a short practice pack for the topic "${topic||'general daily life'}". JSON ONLY like: {"phrase_en":"...","phrase_es":"...","question_en":"...","question_es":"..."}. Keep sentences simple (<= 12 words).`; const body={ contents:[{ role:'user', parts:[{text:prompt}]}] };
+  try{ const res = await timedFetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${encodeURIComponent(key)}`, { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(body) }, 12000); if(!res.ok) return null; const j=await res.json(); const text = j?.candidates?.[0]?.content?.parts?.map(p=>p.text).join('\n') || ''; const jsonStr=(text||'').match(/\{[\s\S]*\}/)?.[0]; const data=jsonStr? JSON.parse(jsonStr):null; if(data && data.phrase_en && data.question_en) return data; }catch(e){}
+  return null; }
+async function spGenWeb(topic){ try{ const r=await timedFetch('https://api.adviceslip.com/advice',{},9000); if(!r.ok) throw new Error('advice fail'); const d=await r.json(); const phrase_en=d?.slip?.advice || 'Practice a little every day.'; const q_en = 'Do you agree with this advice? Why or why not?'; const tr1 = await timedFetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(phrase_en)}&langpair=en|es`,{},8000); const t1 = tr1.ok? await tr1.json(): null; const phrase_es=t1?.responseData?.translatedText || 'Practica un poco cada día.'; const tr2 = await timedFetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(q_en)}&langpair=en|es`,{},8000); const t2 = tr2.ok? await tr2.json(): null; const q_es = t2?.responseData?.translatedText || '¿Estás de acuerdo con este consejo? ¿Por qué?'; return { phrase_en, phrase_es, question_en:q_en, question_es:q_es };
+  }catch(e){ return { phrase_en:'Repeat after me: Safety first at work.', phrase_es:'Repite después de mí: La seguridad primero en el trabajo.', question_en:'What safety rule is most important in your job?', question_es:'¿Qué regla de seguridad es más importante en tu trabajo?' }; }
+}
+function spRenderPack(pack){ const pEn=document.getElementById('spPhraseEn'); const pEs=document.getElementById('spPhraseEs'); const pFg=document.getElementById('spPhraseFig'); const qEn=document.getElementById('spQEn'); const qEs=document.getElementById('spQEs'); pEn.innerText=pack.phrase_en||'—'; pEs.innerText=pack.phrase_es||'—'; pFg.innerText=getFigurada(pack.phrase_en||'',{maxLen:400}); qEn.innerText=pack.question_en||'—'; qEs.innerText=pack.question_es||'—'; document.getElementById('spShadowHyp').innerText='—'; document.getElementById('spAnsHyp').innerText='—'; }
+async function spGenerate(){ const topic=getTopicSpeak(); showSpeakStatus('Generating...'); let pack = await spGenAI(topic); if(!pack){ pack = await spGenWeb(topic); } spRenderPack(pack); confetti({ particleCount:70, spread:70, origin:{y:.85}, colors:['#7C7CFF','#00E5FF','#10b981']}); await sleep(600); showSpeakStatus('Idle'); }
+
+// Speech Recognition for SPEAK
+let spRec=null; let spMode='phrase';
+function spSupports(){ return ('webkitSpeechRecognition' in window)||('SpeechRecognition' in window); }
+function spStartPhraseRec(){ if(!spSupports()){ alert('Speech API not available in this browser.'); return; } spMode='phrase'; spStartRecInternal('spShadowHyp'); }
+function spStartAnswerRec(){ if(!spSupports()){ alert('Speech API not available in this browser.'); return; } spMode='answer'; spStartRecInternal('spAnsHyp'); }
+function spStartRecInternal(targetId){ const SR=window.SpeechRecognition||window.webkitSpeechRecognition; spRec=new SR(); spRec.lang='en-US'; spRec.continuous=true; spRec.interimResults=true; let final=''; const outEl=document.getElementById(targetId); outEl.innerText='Listening...'; spRec.onresult=(e)=>{ let interim=''; for(let i=e.resultIndex;i<e.results.length;i++){ const r=e.results[i]; if(r.isFinal){ final += r[0].transcript+' '; } else { interim += r[0].transcript; } } outEl.innerText=(final+interim).trim()||'—'; };
+  spRec.onerror=()=>{ outEl.innerText='(Error / try again)'; };
+  spRec.start(); }
+function spStopRec(){ try{ spRec && spRec.stop(); }catch{} }
+
+
+function spUseSuggest(){ spGenWeb(getTopicSpeak()).then(spRenderPack); }
+// ===== LEVEL pools (same as previous version)
+const POOL_MC=[{id:'mc1',q:"I'm interested ___ learning English.",opts:['in','on','at'],a:0},{id:'mc2',q:"She ____ to the gym every day.",opts:['go','goes','is go'],a:1},{id:'mc3',q:"If I ____ more time, I would travel.",opts:['have','had','would have'],a:1},{id:'mc4',q:"He has been working here ____ 2018.",opts:['for','since','from'],a:1},{id:'mc5',q:"We arrived ____ the airport at 7 pm.",opts:['to','at','in'],a:1},{id:'mc6',q:"Choose the correct form: ‘I ____ seen that movie.’",opts:['haven\'t','didn\'t','don\'t'],a:0},{id:'mc7',q:"‘Child’ plural is…",opts:['childs','children','childes'],a:1},{id:'mc8',q:"He drives ____ than me.",opts:['most careful','more carefully','carefuller'],a:1},{id:'mc9',q:"We ____ to finish before noon.",opts:['are going','going','are go'],a:0},{id:'mc10',q:"Pick the synonym of ‘improve’.",opts:['enhance','remove','decline'],a:0},{id:'mc11',q:"‘Few’ vs ‘a few’: Which means ‘some’?",opts:['few','a few','both'],a:1},{id:'mc12',q:"I wish I ____ more money.",opts:['have','had','will have'],a:1},{id:'mc13',q:"By this time tomorrow, I ____ my exam.",opts:['will finish','will have finished','am finishing'],a:1},{id:'mc14',q:"He suggested ____ to the museum.",opts:['to go','going','go'],a:1},{id:'mc15',q:"They were made ____ outside.",opts:['wait','to wait','waiting'],a:0},{id:'mc16',q:"Neither John nor his friends ____ coming.",opts:['is','are','be'],a:1},{id:'mc17',q:"If it ____ tomorrow, we will cancel.",opts:['rains','rained','rain'],a:0},{id:'mc18',q:"I look forward ____ from you.",opts:['to hear','hearing','to hearing'],a:2},{id:'mc19',q:"He spoke ____ confidence.",opts:['with','in','on'],a:0},{id:'mc20',q:"Hardly ____ the bus when it started to rain.",opts:['I had left','had I left','I left'],a:1}];
+const POOL_CLOZE=[{id:'cz1',t:"I ____ (go) to work by bus.",a:['go']},{id:'cz2',t:"They have ____ (finish) their homework.",a:['finished','finish']},{id:'cz3',t:"We will meet ____ (at/in) the afternoon.",a:['in','at']},{id:'cz4',t:"She ____ (not/like) spicy food.",a:['does not like','doesn\'t like','doesnt like']},{id:'cz5',t:"It has been ____ (rain) all day.",a:['raining']},{id:'cz6',t:"By next June, I ____ (complete) my course.",a:['will have completed','will have complete']},{id:'cz7',t:"This is the book ____ (which/that) I told you about.",a:['which','that']},{id:'cz8',t:"He runs ____ (quick/quickly).",a:['quickly']},{id:'cz9',t:"Let me know if you ____ (need) help.",a:['need']},{id:'cz10',t:"I prefer ____ (stay) home tonight.",a:['to stay','staying']},{id:'cz11',t:"We ____ (already/eat) breakfast.",a:['have already eaten','already ate','have eaten already']},{id:'cz12',t:"She didn’t come, ____ (although/because) she was invited.",a:['although']}];
+const POOL_TRANS=[{id:'tr1',es:"Ayer fui al supermercado y compré frutas.",key:[['yesterday'],['went'],['supermarket','store','market'],['bought'],['fruit','fruits']]},{id:'tr2',es:"Si tengo tiempo, estudiaré inglés por la tarde.",key:[['if'],['i'],['have'],['time'],['will'],['study'],['english'],['afternoon']]},{id:'tr3',es:"Ella ha estado trabajando aquí desde 2019.",key:[['has'],['been'],['working'],['here'],['since'],['2019']]},{id:'tr4',es:"¿Podrías hablar más despacio, por favor?",key:[['could'],['you'],['speak','talk'],['more','a','bit','slower','slowly']]},{id:'tr5',es:"Mañana visitaré a mis abuelos en su casa.",key:[['tomorrow'],['visit','will','be','visiting'],['grandparents'],['house','home']]},{id:'tr6',es:"Me gustaría reservar una mesa para dos esta noche.",key:[['would'],['like'],['book','reserve'],['table'],['for'],['two'],['tonight']]},{id:'tr7',es:"Gracias por toda tu ayuda en el proyecto.",key:[['thank','thanks'],['for'],['all'],['your'],['help'],['project']]},{id:'tr8',es:"Creo que necesitamos una solución más rápida.",key:[['i'],['think'],['we'],['need'],['faster','quicker'],['solution']]},{id:'tr9',es:"No entiendo lo que quieres decir.",key:[['i'],['do','don\'t'],['understand'],['what'],['you'],['mean']]},{id:'tr10',es:"¿Dónde nos vamos a encontrar esta tarde?",key:[['where'],['are','we'],['going'],['to'],['meet'],['this','afternoon']]}];
+const POOL_SPEAK=[{id:'sp1',en:"The weather is getting better and better."},{id:'sp2',en:"I would like to book a table for two tonight."},{id:'sp3',en:"Could you please repeat that a bit slower?"},{id:'sp4',en:"Practice makes perfect if you do it every day."},{id:'sp5',en:"We will meet at seven in the evening."},{id:'sp6',en:"I have been learning English for three years."},{id:'sp7',en:"Please let me know if you have any questions."},{id:'sp8',en:"I’m looking forward to hearing from you soon."},{id:'sp9',en:"There was heavy traffic on my way to work."},{id:'sp10',en:"Could I get a takeaway coffee, please?"},{id:'sp11',en:"I didn’t catch that, could you say it again?"},{id:'sp12',en:"This is the first time I have visited this city."}];
+let lvSteps=[], lvState=null; function loadRecent(key){ try{ return JSON.parse(localStorage.getItem(key)||'[]'); }catch{ return []; } }
+function saveRecent(key, arr){ try{ localStorage.setItem(key, JSON.stringify(arr)); }catch{} }
+function sampleFromPool(pool, count, recentKey, recentCap=40){ const recent = loadRecent(recentKey); const recentSet=new Set(recent); const fresh = pool.filter(it=> !recentSet.has(it.id)); let picks=[]; function shuffle(a){ for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; } if(fresh.length>=count){ picks = shuffle(fresh).slice(0,count); } else { picks = shuffle(fresh).slice(0,count); let poolShuf = shuffle(pool.slice()); for(const it of poolShuf){ if(picks.length>=count) break; if(!picks.find(x=>x.id===it.id)) picks.push(it); } } const newRecent = [...picks.map(p=>p.id), ...recent]; saveRecent(recentKey, newRecent.slice(0, recentCap)); return picks; }
+function lvNewAttempt(){ const LV_MC = sampleFromPool(POOL_MC, 5, 'lv_recent_mc'); const LV_CLOZE = sampleFromPool(POOL_CLOZE, 4, 'lv_recent_cloze'); const LV_TRANS = sampleFromPool(POOL_TRANS, 3, 'lv_recent_trans'); const LV_SPEAK = sampleFromPool(POOL_SPEAK, 3, 'lv_recent_speak'); lvSteps = [ ...LV_MC.map((_,i)=>({type:'mc', i, pool:LV_MC})), ...LV_CLOZE.map((_,i)=>({type:'cloze', i, pool:LV_CLOZE})), ...LV_TRANS.map((_,i)=>({type:'trans', i, pool:LV_TRANS})), ...LV_SPEAK.map((_,i)=>({type:'speak', i, pool:LV_SPEAK})) ]; lvState = { step:0, scores:{ mc:Array(5).fill(null), cloze:Array(4).fill(null), trans:Array(3).fill(null), speak:Array(3).fill(null) }, speakHyp:Array(3).fill('') }; lvRender(); }
+function lvRender(){ const step=lvState?.step??null; const view=document.getElementById('lvView'); if(step===null){ view.innerHTML='<div class="text-es">Pulsa <b>Nuevo intento</b> para generar el test.</div>'; return; } const total=lvSteps.length; const cur=lvSteps[step]; document.getElementById('lvStepLabel').innerText=`Paso ${step+1} de ${total}`; document.getElementById('lvTypeLabel').innerText=cur.type.toUpperCase(); const pct = Math.round(((step+1)/total)*100); document.getElementById('lvProgressLabel').innerText=pct+'%'; document.getElementById('lvBar').style.width=pct+'%'; view.innerHTML=''; if(cur.type==='mc'){ const item=cur.pool[cur.i]; const idxs=[0,1,2]; for(let i=idxs.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [idxs[i],idxs[j]]=[idxs[j],idxs[i]]; } const box=document.createElement('div'); box.className='qbox'; box.innerHTML=`<div class='text-en' style='font-size:1.1rem'>${item.q}</div>`+idxs.map(k=>`<label><input type='radio' name='mc_${cur.i}' value='${k}'> ${item.opts[k]}</label>`).join(''); view.appendChild(box); }
+  if(cur.type==='cloze'){ const item=cur.pool[cur.i]; const box=document.createElement('div'); box.className='qbox'; box.innerHTML=`<div class='text-en' style='font-size:1.05rem'>${item.t}</div><input id='cz_${cur.i}' placeholder='Respuesta'>`; view.appendChild(box); }
+  if(cur.type==='trans'){ const item=cur.pool[cur.i]; const box=document.createElement('div'); box.className='qbox'; box.innerHTML=`<div class='text-es' style='font-size:1.05rem'><b>Traduce</b>: "${item.es}"</div><textarea id='tr_${cur.i}' rows='3' placeholder='Escribe tu traducción en inglés...'></textarea>`; view.appendChild(box); }
+  if(cur.type==='speak'){ const item=cur.pool[cur.i]; const box=document.createElement('div'); box.className='qbox'; box.innerHTML=`<div class='text-en' style='font-size:1.05rem'><b>Pronuncia:</b> ${item.en}</div>`; view.appendChild(box); }
+}
+function norm(s){ return (s||'').toLowerCase().replace(/[^a-z]/g,''); }
+function tokens(s){ return (s||'').toLowerCase().replace(/[^a-z\s]/g,'').split(/\s+/).filter(Boolean); }
+function coverage(txt, groups){ const t=new Set(tokens(txt)); let hits=0, total=groups.length; groups.forEach(g=>{ if(g.some(word=> t.has(word))) hits++; }); return hits/Math.max(1,total); }
+function lvCheck(){ if(!lvState) return; const cur = lvSteps[lvState.step]; let score=null; if(cur.type==='mc'){ const sel=document.querySelector(`input[name=mc_${cur.i}]:checked`); if(!sel){ alert('Elige una opción.'); return; } score = (Number(sel.value)===cur.pool[cur.i].a)?1:0; lvState.scores.mc[cur.i]=score; }
+  if(cur.type==='cloze'){ const v=document.getElementById('cz_'+cur.i).value; if(!v){ alert('Escribe tu respuesta.'); return; } score = cur.pool[cur.i].a.some(ans=> norm(v)===norm(ans))?1:0; lvState.scores.cloze[cur.i]=score; }
+  if(cur.type==='trans'){ const v=document.getElementById('tr_'+cur.i).value; if(!v){ alert('Escribe tu traducción.'); return; } score = coverage(v, cur.pool[cur.i].key); lvState.scores.trans[cur.i]=score; }
+  if(cur.type==='speak'){ score=1; lvState.scores.speak[cur.i]=score; }
+  document.getElementById('lvNext').disabled=false; document.getElementById('lvCheck').disabled=true; }
+function lvPrev(){ if(!lvState) return; lvState.step=Math.max(0, lvState.step-1); lvRender(); document.getElementById('lvNext').disabled=true; document.getElementById('lvCheck').disabled=false; }
+function lvNext(){ if(!lvState) return; lvState.step++; if(lvState.step>=lvSteps.length){ lvFinish(); } else { lvRender(); document.getElementById('lvNext').disabled=true; document.getElementById('lvCheck').disabled=false; } }
+function lvFinish(){ if(!lvState) return; const avg = arr=> arr.filter(x=>x!==null).reduce((s,x)=>s+x,0) / Math.max(1, arr.filter(x=>x!==null).length); const sMC=avg(lvState.scores.mc)||0; const sCz=avg(lvState.scores.cloze)||0; const sTr=avg(lvState.scores.trans)||0; const sSp=avg(lvState.scores.speak)||0; const pct = Math.round(((sMC+sCz+sTr+sSp)/4)*100); function levelFromScore(p){ if(p<21) return 'A1 (Beginner)'; if(p<41) return 'A2 (Elementary)'; if(p<61) return 'B1 (Intermediate)'; if(p<81) return 'B2 (Upper-Intermediate)'; if(p<91) return 'C1 (Advanced)'; return 'C2 (Master)'; } const level=levelFromScore(pct); const sum=document.getElementById('lvSummary'); sum.style.display='block'; sum.innerHTML = `Nivel estimado: <span style='color:#a5b4fc'>${level}</span> — ${pct}%` + `<div class='text-es'>MC: ${Math.round(sMC*100)}% • Cloze: ${Math.round(sCz*100)}% • Traducción: ${Math.round(sTr*100)}% • Speak: ${Math.round(sSp*100)}%</div>`; if(pct>=80){ confetti({ particleCount: 120, spread: 70, origin:{y:.8}, colors:['#7C7CFF','#10b981','#00E5FF'] }); } }
+
+// ===== INIT
+window.onload=()=>{ reconcileNavLayout(); glLoadSettings(); loadPhrase(); loadStory(); fcLoadSettings(); spLoadSettings(); fcRender(); };
+</script>
+</body>
+</html>
